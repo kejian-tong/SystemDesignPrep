@@ -18,3 +18,5 @@ The `TestParking` class contains unit tests for the `park` and `unPark` methods 
 
 To run the tests, navigate to the `src/com/example/parking` directory and run the `TestParking` class.
 
+## References
+https://medium.com/geekculture/system-design-parking-lot-design-interview-question-using-java-3d1dea4f6a2 
