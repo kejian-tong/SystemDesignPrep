@@ -1,3 +1,5 @@
+package com.example.parking;
+
 import java.util.Date;
 
 /**

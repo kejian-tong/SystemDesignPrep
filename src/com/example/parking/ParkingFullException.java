@@ -1,3 +1,5 @@
+package com.example.parking;
+
 /**
  * We will be creating a custom exception named ParkingFullException -
  *

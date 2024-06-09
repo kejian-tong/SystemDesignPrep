@@ -1,3 +1,5 @@
+package com.example.parking;
+
 public enum VehicleSize {
   TWOWHEELER, FOURWHEELER;
 }

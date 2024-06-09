@@ -1,3 +1,5 @@
+package com.example.parking;
+
 /**
  * Class Slot — This class represents the space in the parking lot which will be used to park the vehicle.
  * A Parking lot will have a finite number of parking slots. This number will be initialized.

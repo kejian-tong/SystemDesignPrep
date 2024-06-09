@@ -1,3 +1,5 @@
+package com.example.parking;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +49,55 @@ public class ParkingLot implements Parking {
     Ticket ticket = new Ticket(nextAvailableSlot.getSlotNumber(), vehicle.getVehicleNumber(),
         VehicleSize.valueOf(vehicle.getVehicleSize()), new Date());
     return ticket;
+  }
+
+  public int unPark(Ticket ticket, ParkingChargeStrategy parkingCostStrategy) throws InvalidVehicleNumberException {
+    int costByHours = 0;
+    Slot slot;
+    try {
+      if (ticket.getVehicleSize().equals(VehicleSize.FOURWHEELER)) {
+        slot = getFourWheelerSlotByVehicleNumber(ticket.getVehicleNumber());
+      } else {
+        slot = getTwoWheelerSlotByVehicleNumber(ticket.getVehicleNumber());
+      }
+      slot.vacateSlot();
+      int hours = getHoursParked(ticket.getDate(), new Date());
+      costByHours = parkingCostStrategy.getCharge(hours);
+      System.out.println(
+          "Vehicle with registration " + ticket.getVehicleNumber() + " at slot number " + slot.getSlotNumber()
+              + " was parked for " + hours + " hours and the total charge is " + costByHours);
+    } catch (InvalidVehicleNumberException invalidVehicleNumber) {
+      System.out.println(invalidVehicleNumber.getMessage());
+      throw invalidVehicleNumber;
+    }
+    return costByHours;
+  }
+
+  private int getHoursParked(Date startDate, Date endDate) {
+    long secs = (endDate.getTime() - startDate.getTime()) / 1000;
+    int hours = (int) (secs / 3600);
+    return hours;
+
+  }
+
+  private Slot getFourWheelerSlotByVehicleNumber(String vehicleNumber) throws InvalidVehicleNumberException {
+    for (Slot slot : fourWheelerSlots) {
+      Vehicle vehicle = slot.getParkVehicle();
+      if (vehicle != null && vehicle.getVehicleNumber().equals(vehicleNumber)) {
+        return slot;
+      }
+    }
+    throw new InvalidVehicleNumberException("Two wheeler with registration number " + vehicleNumber + " not found");
+  }
+
+  private Slot getTwoWheelerSlotByVehicleNumber(String vehicleNumber) throws InvalidVehicleNumberException {
+    for (Slot slot : twoWheelerSlots) {
+      Vehicle vehicle = slot.getParkVehicle();
+      if (vehicle != null && vehicle.getVehicleNumber().equals(vehicleNumber)) {
+        return slot;
+      }
+    }
+    throw new InvalidVehicleNumberException("Two wheeler with registration number " + vehicleNumber + " not found");
   }
 
   private Slot getNextAvailableFourWheelerSlot() throws ParkingFullException {

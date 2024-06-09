@@ -1,3 +1,5 @@
+package com.example.parking;
+
 /***
  * Class Vehicle — The vehicle to be parked. It has the vehicle number and the type of vehicle i.e. two-wheeler or four-wheeler.
  */

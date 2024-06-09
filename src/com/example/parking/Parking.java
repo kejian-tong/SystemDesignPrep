@@ -1,3 +1,5 @@
+package com.example.parking;
+
 /**
  *
  * Create an interface named Parking which will have park method.
@@ -6,7 +8,7 @@
 public interface Parking {
 
   public Ticket park(Vehicle vehicle) throws ParkingFullException;
-  public Ticket unPark(Ticket ticket, ParkingChargeStrategy parkingChargeStrategy) throws InvalidVehicleNumberException;
+  public int unPark(Ticket ticket, ParkingChargeStrategy parkingChargeStrategy) throws InvalidVehicleNumberException;
 
 }
 
